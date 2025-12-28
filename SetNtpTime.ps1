@@ -1,12 +1,19 @@
-﻿function GetNtpTime {
+﻿#################################################################
+#
+# NTP から現在時刻を取得して PC の時刻を修正する
+#
+#################################################################
+
+###################
+# NTP Time 取得
+###################
+function GetNtpTime {
 	param(
 		[string[]]$Server = @("ntp.nict.jp", "time.google.com", "pool.ntp.org"),
 		[int]$Port = 123,
 		[int]$TimeoutMs = 3000,
 		[int]$Retry = 2,
-
-		# まず IPv4 を優先して試す
-		[switch]$PreferIPv4
+		[switch]$PreferIPv4 # IPv4 を優先する
 	)
 
 	function Convert-NtpTimestampToUtc([byte[]]$resp) {
@@ -54,7 +61,7 @@
 					$udp = New-Object System.Net.Sockets.UdpClient($ip.AddressFamily)
 					$udp.Client.ReceiveTimeout = $TimeoutMs
 
-					# PS 5.1 対策
+					# Windows PowerShell 5.1 でエラーになる対策
 					$ep = New-Object System.Net.IPEndPoint($ip, $Port)
 					$udp.Connect($ep)
 
@@ -93,5 +100,9 @@
 	throw "NTP時刻取得に失敗しました。UDP/123遮断 or IPv6/IPv4経路不調の可能性。`n直近のエラー:`n$detail"
 }
 
+#################################################################
+# main
+#################################################################
 
+# PC の時刻を合わせる
 Set-Date -Date (GetNtpTime).LocalTime

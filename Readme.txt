@@ -27,7 +27,7 @@ git@github.com:MuraAtVwnet/GetNtpTime.git
 
 ■ リポジトリ内モジュール説明
 
-GetNtpTime.ps1
+SetNtpTime.ps1
 	スクリプト本体
 Readme.txt
 	このファイル

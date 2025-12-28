@@ -2,8 +2,8 @@
 PC の時間を NTP から取得した時間にします
 
 
-■ 時間調整ル方法
-PowerShell を管理者で開いて、以下をコピペ
+■ 時間調整方法
+# PowerShell を管理者で開いて、以下をコピペ
 
 $ModuleName = "GetNtpTime"
 $GitHubName = "MuraAtVwnet"
